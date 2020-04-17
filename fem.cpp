@@ -106,16 +106,16 @@ void DeformableMesh2D::setForce(int node, float x, float y) {
 	forces_[2 * node + 1] = y;
 };
 
-Eigen::VectorXf DeformableMesh2D::calculateDisplacements() {
+std::vector<float> DeformableMesh2D::calculateDisplacements() {
 	D1_ = Q_ * forces_;
-	return D1_;
+	return std::vector<float>(D1_.data(), D1_.data() + D1_.size());
 }
 
 void DeformableMesh2D::resetVelocity() {
 	D2_.setZero();
 }
 
-Eigen::VectorXf DeformableMesh2D::freeOcillationStep(float delta = 0.0f) {
+std::vector<float> DeformableMesh2D::freeOscillationStep(float delta = 0.0f) {
 	if (fixed_delta_enabled_) delta = fixed_delta_;
 	switch (method_) {
 		case (DeformableMesh2D::Method::METHOD_EXPLICIT_EULER) : {
@@ -183,7 +183,7 @@ Eigen::VectorXf DeformableMesh2D::freeOcillationStep(float delta = 0.0f) {
 		}
 	}
 
-	return D1_;
+	return std::vector<float>(D1_.data(), D1_.data() + D1_.size());
 }
 
 void Element2D::CalculateStiffnessMatrix(const Eigen::Matrix3f& D, const std::vector<float>& nodes_x,

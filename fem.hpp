@@ -86,8 +86,8 @@ class DeformableMesh2D {
   void setForce(int node, float x, float y);
   void setFriction(float R) { R_ = R; }
   float getFriction() { return R_; }
-  Eigen::VectorXf calculateDisplacements();
-  Eigen::VectorXf freeOcillationStep(float delta);
+  std::vector<float> calculateDisplacements();
+  std::vector<float> freeOscillationStep(float delta);
   void resetVelocity();
   void setElements(std::vector<Element2D> elements) { elements_ = elements; }
   std::vector<Element2D> getElements() { return elements_; }
@@ -95,8 +95,8 @@ class DeformableMesh2D {
   std::vector<float> getNodesX() { return nodes_x_; }
   void setNodesY(std::vector<float> nodes_y) { nodes_y_ = nodes_y; }
   std::vector<float> getNodesY() { return nodes_y_; }
-  Eigen::VectorXf getDisplacements() { return D1_; }
-  Eigen::VectorXf getVelocities() { return D2_; }
+  std::vector<float> getDisplacements() { return std::vector<float>(D1_.data(), D1_.data() + D1_.size()); }
+  std::vector<float> getVelocities() { return std::vector<float>(D2_.data(), D2_.data() + D2_.size()); };
   void setMethod(Method method) { method_ = method; }
   Method getMethod() { return method_; }
   void setFixedDeltaEnabled(bool enabled) { fixed_delta_enabled_ = enabled; }
