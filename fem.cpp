@@ -44,7 +44,7 @@ void DeformableMesh2D::calculateProcedureMatrix() {
 	Eigen::SparseMatrix<float> S_inv = solver.solve(I);
 	T1_ = (I + fixed_delta_*fixed_delta_ * S_inv * K_);
 	T2_ = fixed_delta_ * S_inv;
-	T3_ = fixed_delta_ * K_ * S_inv;
+	T3_ = fixed_delta_ * S_inv * K_;
 	T4_ = S_inv;
 }
 
@@ -174,7 +174,7 @@ std::vector<float> DeformableMesh2D::freeOscillationStep(float delta = 0.0f) {
 				Eigen::SimplicialLDLT<Eigen::SparseMatrix<float> > solver(S);
 				Eigen::SparseMatrix<float> S_inv = solver.solve(I);
 				D1_ = (I + delta*delta * S_inv * K_) * D1 + delta * S_inv * D2;
-				D2_ =  delta * K_ * S_inv * D1 + S_inv * D2;
+				D2_ =  delta * S_inv * K_ * D1 + S_inv * D2;
 			} else {
 				D1_ = T1_ * D1 + T2_ * D2;
 				D2_ = T3_ * D1 + T4_ * D2;
