@@ -79,7 +79,7 @@ class DeformableMesh2D {
   DeformableMesh2D();
   void preprocess();
   // Pre-processing.
-  void clearContraints() { constraints_.clear(); }
+  void clearConstraints() { constraints_.clear(); }
   void setConstraint(Constraint constraint);
   // Getting displacements from forces.
   void setYoungModulus(float young_modulus) { young_modulus_ = young_modulus; }
