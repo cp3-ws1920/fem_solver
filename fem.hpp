@@ -78,10 +78,8 @@ class DeformableMesh2D {
  public:
   DeformableMesh2D();
   void preprocess();
-  // Pre-processing.
   void clearConstraints() { constraints_.clear(); }
   void setConstraint(Constraint constraint);
-  // Getting displacements from forces.
   void setYoungModulus(float young_modulus) { young_modulus_ = young_modulus; }
   void setPoissonRatio(float poisson_ratio) { poisson_ratio_ = poisson_ratio; }
   void setForce(int node, float x, float y);
